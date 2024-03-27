@@ -10,7 +10,7 @@ if __name__ == '__main__':
     conf = SparkConf().setAppName('collaborativeFiltering').setMaster('local')
     spark = SparkSession.builder.config(conf=conf).getOrCreate()
     #/Users/zhewang/Workspace/SparrowRecSys/src/main/resources/webroot/modeldata
-    file_path = 'file:///Users/zhewang/Workspace/SparrowRecSys/src/main/resources'
+    file_path = 'file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main/resources'
     ratingResourcesPath = file_path + '/webroot/sampledata/ratings.csv'
     ratingSamples = spark.read.format('csv').option('header', 'true').load(ratingResourcesPath) \
         .withColumn("userIdInt", F.col("userId").cast(IntegerType())) \

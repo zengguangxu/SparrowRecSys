@@ -9,11 +9,11 @@ Diff with DeepFM:
 
 # Training samples path, change to your local path
 training_samples_file_path = tf.keras.utils.get_file("trainingSamples.csv",
-                                                     "file:///Users/zhewang/Workspace/SparrowRecSys/src/main"
+                                                     "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main"
                                                      "/resources/webroot/sampledata/trainingSamples.csv")
 # Test samples path, change to your local path
 test_samples_file_path = tf.keras.utils.get_file("testSamples.csv",
-                                                 "file:///Users/zhewang/Workspace/SparrowRecSys/src/main"
+                                                 "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main"
                                                  "/resources/webroot/sampledata/testSamples.csv")
 
 
@@ -21,7 +21,7 @@ test_samples_file_path = tf.keras.utils.get_file("testSamples.csv",
 def get_dataset(file_path):
     dataset = tf.data.experimental.make_csv_dataset(
         file_path,
-        batch_size=12,
+        batch_size=128,
         label_name='label',
         na_value="0",
         num_epochs=1,
@@ -161,17 +161,20 @@ model.compile(
     optimizer='adam',
     metrics=['accuracy', tf.keras.metrics.AUC(curve='ROC'), tf.keras.metrics.AUC(curve='PR')])
 
-# train the model
-model.fit(train_dataset, epochs=5)
+model.summary()
 
-# evaluate the model
-test_loss, test_accuracy, test_roc_auc, test_pr_auc = model.evaluate(test_dataset)
-print('\n\nTest Loss {}, Test Accuracy {}, Test ROC AUC {}, Test PR AUC {}'.format(test_loss, test_accuracy,
-                                                                                   test_roc_auc, test_pr_auc))
-
-# print some predict results
-predictions = model.predict(test_dataset)
-for prediction, goodRating in zip(predictions[:12], list(test_dataset)[0][1][:12]):
-    print("Predicted good rating: {:.2%}".format(prediction[0]),
-          " | Actual rating label: ",
-          ("Good Rating" if bool(goodRating) else "Bad Rating"))
+# # train the model
+# model.fit(train_dataset, epochs=2)
+#
+#
+# # evaluate the model
+# test_loss, test_accuracy, test_roc_auc, test_pr_auc = model.evaluate(test_dataset)
+# print('\n\nTest Loss {}, Test Accuracy {}, Test ROC AUC {}, Test PR AUC {}'.format(test_loss, test_accuracy,
+#                                                                                    test_roc_auc, test_pr_auc))
+#
+# # print some predict results
+# predictions = model.predict(test_dataset)
+# for prediction, goodRating in zip(predictions[:12], list(test_dataset)[0][1][:12]):
+#     print("Predicted good rating: {:.2%}".format(prediction[0]),
+#           " | Actual rating label: ",
+#           ("Good Rating" if bool(goodRating) else "Bad Rating"))

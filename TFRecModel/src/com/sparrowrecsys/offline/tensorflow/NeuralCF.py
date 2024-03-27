@@ -2,11 +2,11 @@ import tensorflow as tf
 
 # Training samples path, change to your local path
 training_samples_file_path = tf.keras.utils.get_file("trainingSamples.csv",
-                                                     "file:///Users/zhewang/Workspace/SparrowRecSys/src/main"
+                                                     "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main"
                                                      "/resources/webroot/sampledata/trainingSamples.csv")
 # Test samples path, change to your local path
 test_samples_file_path = tf.keras.utils.get_file("testSamples.csv",
-                                                 "file:///Users/zhewang/Workspace/SparrowRecSys/src/main"
+                                                 "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main"
                                                  "/resources/webroot/sampledata/testSamples.csv")
 
 
@@ -28,11 +28,11 @@ test_dataset = get_dataset(test_samples_file_path)
 
 # movie id embedding feature
 movie_col = tf.feature_column.categorical_column_with_identity(key='movieId', num_buckets=1001)
-movie_emb_col = tf.feature_column.embedding_column(movie_col, 10)
+movie_emb_col = tf.feature_column.embedding_column(movie_col, 20)
 
 # user id embedding feature
 user_col = tf.feature_column.categorical_column_with_identity(key='userId', num_buckets=30001)
-user_emb_col = tf.feature_column.embedding_column(user_col, 10)
+user_emb_col = tf.feature_column.embedding_column(user_col, 20)
 
 # define input for keras model
 inputs = {
@@ -56,14 +56,20 @@ def neural_cf_model_1(feature_inputs, item_feature_columns, user_feature_columns
 # neural cf model arch one. embedding+MLP in each tower, then dot product layer as the output
 def neural_cf_model_2(feature_inputs, item_feature_columns, user_feature_columns, hidden_units):
     item_tower = tf.keras.layers.DenseFeatures(item_feature_columns)(feature_inputs)
+    count = 1
     for num_nodes in hidden_units:
-        item_tower = tf.keras.layers.Dense(num_nodes, activation='relu')(item_tower)
+        item_tower = tf.keras.layers.Dense(num_nodes, activation='relu', name="item_tower_" + str(count))(item_tower)
+        count += 1
 
     user_tower = tf.keras.layers.DenseFeatures(user_feature_columns)(feature_inputs)
+    count = 1
     for num_nodes in hidden_units:
-        user_tower = tf.keras.layers.Dense(num_nodes, activation='relu')(user_tower)
+        user_tower = tf.keras.layers.Dense(num_nodes, activation='relu', name="user_tower_" + str(count))(user_tower)
+        count += 1
 
     output = tf.keras.layers.Dot(axes=1)([item_tower, user_tower])
+    for num_nodes in hidden_units:
+        output = tf.keras.layers.Dense(num_nodes, activation='relu')(output)
     output = tf.keras.layers.Dense(1, activation='sigmoid')(output)
 
     neural_cf_model = tf.keras.Model(feature_inputs, output)
@@ -71,7 +77,8 @@ def neural_cf_model_2(feature_inputs, item_feature_columns, user_feature_columns
 
 
 # neural cf model architecture
-model = neural_cf_model_1(inputs, [movie_emb_col], [user_emb_col], [10, 10])
+hidden_units = [15, 10, 10]
+model = neural_cf_model_2(inputs, [movie_emb_col], [user_emb_col], hidden_units)
 
 # compile the model, set loss function, optimizer and evaluation metrics
 model.compile(
@@ -79,27 +86,43 @@ model.compile(
     optimizer='adam',
     metrics=['accuracy', tf.keras.metrics.AUC(curve='ROC'), tf.keras.metrics.AUC(curve='PR')])
 
-# train the model
-model.fit(train_dataset, epochs=5)
+# 输出模型网络结构
+# tf.keras.utils.plot_model(model, to_file="./NeuralCF.png", show_shapes=True)
 
-# evaluate the model
-test_loss, test_accuracy, test_roc_auc, test_pr_auc = model.evaluate(test_dataset)
-print('\n\nTest Loss {}, Test Accuracy {}, Test ROC AUC {}, Test PR AUC {}'.format(test_loss, test_accuracy,
-                                                                                   test_roc_auc, test_pr_auc))
+# model.summary()
 
-# print some predict results
-predictions = model.predict(test_dataset)
-for prediction, goodRating in zip(predictions[:12], list(test_dataset)[0][1][:12]):
-    print("Predicted good rating: {:.2%}".format(prediction[0]),
-          " | Actual rating label: ",
-          ("Good Rating" if bool(goodRating) else "Bad Rating"))
+item_model = tf.keras.Model(inputs=model.inputs, outputs=model.get_layer(name='item_tower_'+str(len(hidden_units))).output)
+item_model.summary()
+# 输出模型网络结构
+tf.keras.utils.plot_model(item_model, to_file="./NeuralCF_Item.png", show_shapes=True)
 
-tf.keras.models.save_model(
-    model,
-    "file:///Users/zhewang/Workspace/SparrowRecSys/src/main/resources/webroot/modeldata/neuralcf/002",
-    overwrite=True,
-    include_optimizer=True,
-    save_format=None,
-    signatures=None,
-    options=None
-)
+user_model = tf.keras.Model(inputs=model.inputs, outputs=model.get_layer(name='user_tower_'+str(len(hidden_units))).output)
+user_model.summary()
+# 输出模型网络结构
+tf.keras.utils.plot_model(user_model, to_file="./NeuralCF_User.png", show_shapes=True)
+
+
+# # train the model
+# model.fit(train_dataset, epochs=5)
+#
+# # evaluate the model
+# test_loss, test_accuracy, test_roc_auc, test_pr_auc = model.evaluate(test_dataset)
+# print('\n\nTest Loss {}, Test Accuracy {}, Test ROC AUC {}, Test PR AUC {}'.format(test_loss, test_accuracy,
+#                                                                                    test_roc_auc, test_pr_auc))
+#
+# # print some predict results
+# predictions = model.predict(test_dataset)
+# for prediction, goodRating in zip(predictions[:12], list(test_dataset)[0][1][:12]):
+#     print("Predicted good rating: {:.2%}".format(prediction[0]),
+#           " | Actual rating label: ",
+#           ("Good Rating" if bool(goodRating) else "Bad Rating"))
+#
+# tf.keras.models.save_model(
+#     model,
+#     "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main/resources/webroot/modeldata/neuralcf/002",
+#     overwrite=True,
+#     include_optimizer=True,
+#     save_format=None,
+#     signatures=None,
+#     options=None
+# )
