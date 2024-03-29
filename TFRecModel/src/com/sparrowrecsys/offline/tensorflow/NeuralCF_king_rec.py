@@ -2,83 +2,7 @@ import tensorflow as tf
 from tensorflow.python.framework import dtypes
 
 train_data_list = [
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-01.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-02.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-03.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-04.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-05.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-06.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-07.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-08.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-09.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-10.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-11.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-12.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-13.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-14.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-15.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-16.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-17.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-18.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-19.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-20.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-21.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-22.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-23.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-24.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-25.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-26.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-27.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-28.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-29.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-30.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-01-31.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-01.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-02.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-03.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-04.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-05.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-06.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-07.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-08.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-09.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-10.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-11.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-12.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-13.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-14.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-15.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-16.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-17.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-18.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-19.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-20.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-21.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-22.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-23.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-24.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-25.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-26.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-27.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-28.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-02-29.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-01.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-02.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-03.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-04.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-05.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-06.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-07.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-08.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-09.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-10.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-11.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-12.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-13.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-14.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-15.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-16.csv',
-    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-17.csv'
+    '/Users/king.zeng/IdeaProjects/data/king_rec/datas/data-2024-03-17-all-4.csv'
 ]
 
 test_data_list = [
@@ -114,7 +38,7 @@ c2_emb_col = tf.feature_column.embedding_column(c2_col, 8)
 w_col = tf.feature_column.categorical_column_with_hash_bucket(key='w', dtype=dtypes.int32, hash_bucket_size=100)
 w_emb_col = tf.feature_column.embedding_column(w_col, 8)
 
-sc_col = tf.feature_column.categorical_column_with_hash_bucket(key='sc', dtype=dtypes.int32, hash_bucket_size=100)
+sc_col = tf.feature_column.categorical_column_with_hash_bucket(key='sc', dtype=dtypes.string, hash_bucket_size=100)
 sc_emb_col = tf.feature_column.embedding_column(sc_col, 8)
 
 pc_col = tf.feature_column.categorical_column_with_hash_bucket(key='pc', dtype=dtypes.int32, hash_bucket_size=100)
@@ -146,12 +70,12 @@ sex_emb_col = tf.feature_column.embedding_column(sex_col, 4)
 inputs = {
     'pid': tf.keras.layers.Input(name='pid', shape=(), dtype='int32'),
     'uid': tf.keras.layers.Input(name='uid', shape=(), dtype='int32'),
-    'ts': tf.keras.layers.Input(name='ts', shape=(), dtype='int32'),
-    'event': tf.keras.layers.Input(name='event', shape=(), dtype='int32'),
-    'ct': tf.keras.layers.Input(name='ct', shape=(), dtype='string'),
+    # 'ts': tf.keras.layers.Input(name='ts', shape=(), dtype='int32'),
+    # 'event': tf.keras.layers.Input(name='event', shape=(), dtype='int32'),
+    # 'ct': tf.keras.layers.Input(name='ct', shape=(), dtype='string'),
     'lc': tf.keras.layers.Input(name='lc', shape=(), dtype='int32'),
     'w': tf.keras.layers.Input(name='w', shape=(), dtype='int32'),
-    'sc': tf.keras.layers.Input(name='sc', shape=(), dtype='int32'),
+    'sc': tf.keras.layers.Input(name='sc', shape=(), dtype='string'),
     'pc': tf.keras.layers.Input(name='pc', shape=(), dtype='int32'),
     'c2': tf.keras.layers.Input(name='c2', shape=(), dtype='int32'),
     'cid': tf.keras.layers.Input(name='cid', shape=(), dtype='int32'),
@@ -165,13 +89,13 @@ item_feature_columns = [
     w_emb_col,
     sc_emb_col,
     pc_emb_col,
-    ct_emb_col
+    # ct_emb_col
 ]
 
 user_feature_columns = [
     cid_emb_col,
-    ts_emb_col,
-    event_emb_col,
+    # ts_emb_col,
+    # event_emb_col,
     user_emb_col,
     sex_emb_col
 ]
@@ -184,7 +108,7 @@ def neural_cf_model_1(feature_inputs, item_feature_columns, user_feature_columns
     for num_nodes in hidden_units:
         interact_layer = tf.keras.layers.Dense(num_nodes, activation='relu')(interact_layer)
     output_layer = tf.keras.layers.Dense(1, activation='sigmoid')(interact_layer)
-    neural_cf_model = tf.keras.Model(feature_inputs, output_layer)
+    neural_cf_model = tf.keras.Model(feature_inputs, output_layer, name="neural_cf_model_1")
     return neural_cf_model
 
 
@@ -207,12 +131,12 @@ def neural_cf_model_2(feature_inputs, item_feature_columns, user_feature_columns
         output = tf.keras.layers.Dense(num_nodes, activation='relu')(output)
     output = tf.keras.layers.Dense(1, activation='sigmoid')(output)
 
-    neural_cf_model = tf.keras.Model(feature_inputs, output)
+    neural_cf_model = tf.keras.Model(feature_inputs, output, name="neural_cf_model_2")
     return neural_cf_model
 
 
 # neural cf model architecture
-hidden_units = [15, 10, 10]
+hidden_units = [64, 32, 32, 16, 16, 8]
 model = neural_cf_model_2(inputs, item_feature_columns, user_feature_columns, hidden_units)
 
 # compile the model, set loss function, optimizer and evaluation metrics
@@ -226,12 +150,13 @@ model.compile(
 
 # model.summary()
 
-item_model = tf.keras.Model(inputs=model.inputs, outputs=model.get_layer(name='item_tower_'+str(len(hidden_units))).output)
+item_model = tf.keras.Model(inputs=model.inputs, outputs=model.get_layer(name='item_tower_'+str(len(hidden_units))).output, name="neural_cf_model_item")
 item_model.summary()
 # 输出模型网络结构
+# 下面的方法依赖pip install pydot和conda install conda-forge::graphviz
 tf.keras.utils.plot_model(item_model, to_file="./NeuralCF_Item_king.png", show_shapes=True)
 
-user_model = tf.keras.Model(inputs=model.inputs, outputs=model.get_layer(name='user_tower_'+str(len(hidden_units))).output)
+user_model = tf.keras.Model(inputs=model.inputs, outputs=model.get_layer(name='user_tower_'+str(len(hidden_units))).output, name="neural_cf_model_user")
 user_model.summary()
 # 输出模型网络结构
 tf.keras.utils.plot_model(user_model, to_file="./NeuralCF_User_king.png", show_shapes=True)
@@ -240,21 +165,41 @@ tf.keras.utils.plot_model(user_model, to_file="./NeuralCF_User_king.png", show_s
 # train the model
 model.fit(train_dataset, epochs=3)
 
-# evaluate the model
-test_loss, test_accuracy, test_roc_auc, test_pr_auc = model.evaluate(test_dataset)
-print('\n\nTest Loss {}, Test Accuracy {}, Test ROC AUC {}, Test PR AUC {}'.format(test_loss, test_accuracy,
-                                                                                   test_roc_auc, test_pr_auc))
-
-# print some predict results
-predictions = model.predict(test_dataset)
-for prediction, goodRating in zip(predictions[:12], list(test_dataset)[0][1][:12]):
-    print("Predicted good rating: {:.2%}".format(prediction[0]),
-          " | Actual rating label: ",
-          ("Good Rating" if bool(goodRating) else "Bad Rating"))
+# # evaluate the model
+# test_loss, test_accuracy, test_roc_auc, test_pr_auc = model.evaluate(test_dataset)
+# print('\n\nTest Loss {}, Test Accuracy {}, Test ROC AUC {}, Test PR AUC {}'.format(test_loss, test_accuracy,
+#                                                                                    test_roc_auc, test_pr_auc))
+#
+# # print some predict results
+# predictions = model.predict(test_dataset)
+# for prediction, goodRating in zip(predictions[:12], list(test_dataset)[0][1][:12]):
+#     print("Predicted good rating: {:.2%}".format(prediction[0]),
+#           " | Actual rating label: ",
+#           ("Good Rating" if bool(goodRating) else "Bad Rating"))
 
 tf.keras.models.save_model(
     model,
-    "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main/resources/webroot/modeldata/neuralcf/002",
+    "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main/resources/webroot/modeldata/neuralcf/uicf/001",
+    overwrite=True,
+    include_optimizer=True,
+    save_format=None,
+    signatures=None,
+    options=None
+)
+
+tf.keras.models.save_model(
+    item_model,
+    "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main/resources/webroot/modeldata/neuralcf/item/001",
+    overwrite=True,
+    include_optimizer=True,
+    save_format=None,
+    signatures=None,
+    options=None
+)
+
+tf.keras.models.save_model(
+    user_model,
+    "file:///Users/king.zeng/IdeaProjects/SparrowRecSys/src/main/resources/webroot/modeldata/neuralcf/user/001",
     overwrite=True,
     include_optimizer=True,
     save_format=None,
